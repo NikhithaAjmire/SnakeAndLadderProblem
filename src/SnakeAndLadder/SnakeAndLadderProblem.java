@@ -11,21 +11,34 @@ public class SnakeAndLadderProblem {
 	    int dice;
 	    
 	    System.out.println("Player is Starting at: " + startingPos);
-	    dice = (int) ((Math.floor(Math.random() * 10) % 6) + 1);
-        System.out.println("Current Dice Face is: " + dice);
-        play = (int) ((Math.floor(Math.random() * 10) % 3));
-        switch (play) {
-        	case IS_LADDER:
-        		currentPos += dice;
-        		break;
-        	case IS_SNAKE:
-        		currentPos -= dice;
-        		break;
-        	default:
-        		currentPos+=0;
-        		break;
-        }
-        System.out.println("New Position is: " + currentPos);
+	    while (currentPos != 100) {
+	    	dice = (int) ((Math.floor(Math.random() * 10) % 6) + 1);
+	    	System.out.println("Current Dice Face is: " + dice);
+	    	play = (int) ((Math.floor(Math.random() * 10) % 3));
+	    	switch (play) {
+        		case IS_LADDER:
+        			currentPos += dice;
+        			break;
+        		case IS_SNAKE:
+        			currentPos -= dice;
+        			break;
+        		default:
+        			currentPos+=0;
+        			break;
+	    	}
+	    	if (currentPos == 100) {
+                break;
+            } else if (currentPos > 100) {
+                currentPos -= dice;
+                System.out.println("Its not valid and staying at same position.");
+            } else if (currentPos < 0) {
+                currentPos = startingPos; // Starting from zero again.
+                System.out.println("Back to start again");
+            } else {
+                System.out.println("New Position is: " + currentPos);
+            }
+	    }
+        System.out.println("You are Winner!!!");
 	}
 
 }
