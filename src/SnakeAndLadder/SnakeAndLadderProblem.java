@@ -3,34 +3,41 @@ package SnakeAndLadder;
 public class SnakeAndLadderProblem {
 	public static final int IS_LADDER = 1;
     public static final int IS_SNAKE = 2;
+    int startingPos=0;
+    int currentPos=0;
+    int play=0;
+    int dice=0;
+    int count1=0;
+    int count2=0;
+    int player=1;
+    
 	public static void main(String[] args) {
 		System.out.println("-----------Welcome to Snake And Ladder Problem---------");
-		int startingPos=0;
-	    int currentPos=0;
-	    int play;
-	    int dice;
-	    int count1=0;
+		SnakeAndLadderProblem s1 = new SnakeAndLadderProblem();
+		
 	    
-	    System.out.println("Player is Starting at: " + startingPos);
-	    while (currentPos != 100) {
-	    	count1++;
-	    	dice = (int) ((Math.floor(Math.random() * 10) % 6) + 1);
-	    	System.out.println("Current Dice Face is: " + dice);
-	    	play = (int) ((Math.floor(Math.random() * 10) % 3));
-	    	switch (play) {
-        		case IS_LADDER:
-        			currentPos += dice;
-        			break;
-        		case IS_SNAKE:
-        			currentPos -= dice;
-        			break;
-        		default:
-        			currentPos+=0;
-        			break;
-	    	}
+	    System.out.println("Player 1 is Starting at: " + s1.startingPos);
+	    System.out.println("Player 2 is Starting at: " + s1.startingPos);
+	    
+	    while (s1.currentPos != 100) {
+	    	if (s1.player == 1) {
+                s1.playCheck(1);
+            } else {
+                s1.playCheck(2);
+            }
+        }
+	}
+	int playerGener() {
+        return (int) ((Math.floor(Math.random() * 10) % 3));
+    }
+    int diceGener() {
+        return (int) ((Math.floor(Math.random() * 10) % 6) + 1);
+    }
+	void checkPosition(int p)
+	{
 	    	if (currentPos == 100) {
 	    		System.out.println("New Position is: " + currentPos);
-                break;
+	    		 exitsGame(p);
             } else if (currentPos > 100) {
                 currentPos -= dice;
                 System.out.println("Its not valid and staying at same position.");
@@ -40,8 +47,46 @@ public class SnakeAndLadderProblem {
             } else {
                 System.out.println("New Position is: " + currentPos);
             }
-	    }
-        System.out.println("You Won the Game!!! and took "+ count1 + " Plays of dice to win ");
 	}
-
+	void playCheck(int p) {
+        if (p == 1) {
+            count1++;
+        } else {
+            count2++;
+        }
+        dice = diceGener();
+        System.out.println("Current Dice Face for player " + p + ": " + dice);
+        play = playerGener();
+        switch (play) {
+        	case IS_LADDER:
+        		currentPos += dice;
+        		checkPosition(p);
+        		playCheck(p);
+        		break;
+        	case IS_SNAKE:
+        		currentPos -= dice;
+        		checkPosition(p);
+        		switchPlayer();
+        		break;
+        	default:
+        		System.out.println("Player " + p + ": No play");
+        		switchPlayer();
+        		break;
+        }
+	}
+    void exitsGame(int p) {
+	        int c = p == 1 ? count1 : count2;
+	        System.out.println("Player" + p + " We have wongame and took " + c + " times to win.");
+	        System.exit(0);
+	}
+    void switchPlayer() {
+    	System.out.println("");
+	    if (player == 1) {
+	    	player = 2;
+	    } 
+	    else {
+	            player = 1;
+	    }
+	}
 }
+	
