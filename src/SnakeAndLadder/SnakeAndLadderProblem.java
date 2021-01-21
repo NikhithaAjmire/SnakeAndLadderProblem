@@ -27,6 +27,7 @@ public class SnakeAndLadderProblem {
         			break;
 	    	}
 	    	if (currentPos == 100) {
+	    		System.out.println("New Position is: " + currentPos);
                 break;
             } else if (currentPos > 100) {
                 currentPos -= dice;
@@ -38,7 +39,7 @@ public class SnakeAndLadderProblem {
                 System.out.println("New Position is: " + currentPos);
             }
 	    }
-        System.out.println("You are Winner!!!");
+        System.out.println("You Won the Game!!!");
 	}
 
 }
