@@ -9,9 +9,11 @@ public class SnakeAndLadderProblem {
 	    int currentPos=0;
 	    int play;
 	    int dice;
+	    int count1=0;
 	    
 	    System.out.println("Player is Starting at: " + startingPos);
 	    while (currentPos != 100) {
+	    	count1++;
 	    	dice = (int) ((Math.floor(Math.random() * 10) % 6) + 1);
 	    	System.out.println("Current Dice Face is: " + dice);
 	    	play = (int) ((Math.floor(Math.random() * 10) % 3));
@@ -39,7 +41,7 @@ public class SnakeAndLadderProblem {
                 System.out.println("New Position is: " + currentPos);
             }
 	    }
-        System.out.println("You Won the Game!!!");
+        System.out.println("You Won the Game!!! and took "+ count1 + " Plays of dice to win ");
 	}
 
 }
